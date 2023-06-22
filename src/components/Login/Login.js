@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect, useReducer, useContext } from 'react';
 
 import Card from '../UI/Card/Card';
 import classes from './Login.module.css';
 import Button from '../UI/Button/Button';
+import AuthContext from '../../store/auth-context';
 
 function emailReducer(state, action){
 
@@ -47,6 +48,8 @@ const Login = (props) => {
     isValid: null
   });
 
+  const authCtx = useContext(AuthContext);
+
   useEffect(() => {
     const identifier = setTimeout(() => {
       console.log('Checking form validity!');
@@ -80,7 +83,7 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
-    props.onLogin(emailState.value, passwordState.isValid);
+    authCtx.onLogin(emailState.value, passwordState.isValid);
   };
 
   return (
